@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Ralphs Reisen</title>
+
+    <style>
+        :root {
+            --yellow: #f3e974;
+            --light-green: #89c498;
+            --dark-green: #578c6f;
+            --blue: #74b2d4;
+        }
+
+        body {
+            position: relative;
+            text-align: center;
+            font-family: 'Mulish', sans-serif;
+            background-color: var(--blue);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Castoro', serif;
+            width: 100%;
+        }
+
+        p {
+            width: 70%;
+        }
+
+        .day{
+            background-color: var(--dark-green);
+            margin: 10px;
+            width: 60vw;
+            padding: 1vw;
+            border-radius: 1vw;
+        }
+
+        .photo {
+            padding: 0;
+        }
+
+        .day-trigger {
+            background-color: var(--light-green);
+            display: inline-block;
+            width: 100%;
+        }
+
+        main {
+            position: absolute;
+            top: 20vh;
+            margin: 0;
+            width: 100%;
+        }
+
+        #top-bar {
+            position: fixed;
+            height: 20vh;
+            background-color: var(--yellow);
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            z-index: 10;
+            padding-left: 20vw;
+        }
+
+        #ralph {
+            max-height: 18vh;
+            margin: 1vh;
+        }
+
+        #message {
+            background-color: white;
+            border-radius: 10px;
+            height: 80%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .grid-image {
+            opacity: 0.8;
+        }
+
+        .grid-image:hover {
+            opacity: 1;
+        }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Castoro&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.3/umd/react.development.js" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.3/umd/react-dom.production.min.js" crossorigin=""></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script type="text/babel">
+        const DATA =
+        [
+            [
+                'Monday, July 4, and Tuesday, July 5',
+                [{url: 'https://bit.ly/3PqxLYf', text: 'First picture of the trip! Vibing with Pringles and a cube at the Winnipeg airport'},
+                {url: 'https://bit.ly/3yD1K8C', text: 'During the flight from YWG to YYZ'},
+                {url: 'https://bit.ly/3PlPwIu', text: 'In-flight meal service for all the unaccompanied minors'},
+                {url: 'https://bit.ly/3uHNNVI', text: 'Finally in Pearson (airport hell)'},
+                {url: 'https://bit.ly/3z8PnCZ', text: 'Waiting for all the Canadians to assemble'},
+                {url: 'https://bit.ly/3AQbSh2', text: 'Playing the annoying, slow version of 2048 that the second plane had'},
+                {url: 'https://bit.ly/3ICmmm9', text: 'Physical manifestation of my mood while trying to get to Germany'},
+                {url: 'https://bit.ly/3yEAsPi', text: "Slugs don't like pasta"},
+                {url: 'https://bit.ly/3cc16Yf', text: 'Slugs like salad :3'},
+                {url: 'https://bit.ly/3O4BZnr', text: 'Trying to sleep with the free Lufthansa pillow and blanket'},
+                {url: 'https://bit.ly/3z6WnjD', text: 'First breakfast in Germany <3 (also shoutout to Air Canada and Lufthansa for bomb airplane food)'},
+                {url: 'https://bit.ly/3aJIHSf', text: 'Staying hydrated on the train'},
+                {url: 'https://bit.ly/3uRhdRA', text: 'During our accidental trip to Cologne instead of Bonn'},
+                {url: 'https://bit.ly/3ARGH53', text: 'Finally at the hotel in Bonn 22 hours after arriving at the airport in Winnipeg'},
+                {url: 'https://bit.ly/3AUDsdi', text: 'Visiting the botanical garden in Bonn'},
+                {url: 'https://bit.ly/3PyDtaz', text: 'Looking at some lily pads and fish'},
+                {url: 'https://bit.ly/3RzqF5H', text: 'Natural habitat'},
+                {url: 'https://bit.ly/3IH7sLs', text: 'Dinner with all the countries in our group except for Georgia. Very awkward.'}]
+            ],
+
+            [
+                'Wednesday, July 6',
+                [{url: 'https://bit.ly/3yAx1Ju', text:'Walking around Bonn'},
+                {url: 'https://bit.ly/3o31N99', text: 'Learning the alphabet through German bathroom graffiti'},
+                {url: 'https://bit.ly/3AWHotR', text:'Looking over the railing of the Alten Rathaus (old town hall), getting ready to begin our scavenger hunt'},
+                {url: 'https://bit.ly/3IK0Dsr', text: "More graffiti in Bonn's Hauptbahnhof (main train station)"},
+                {url: 'https://bit.ly/3yKWsIs', text: 'At the Sterntor'},
+                {url: 'https://bit.ly/3aGiALX', text: 'Selfie with the Sterntor'},
+                {url: 'https://bit.ly/3aCKPeF', text: 'Taking a break to look at the Rhine'},
+                {url: 'https://bit.ly/3ceh1oY', text: 'Making some avian friends'},
+                {url: 'https://bit.ly/3cifVIX', text: 'Cool fountain on the way back to the meeting point'},
+                {url: 'https://bit.ly/3o8cW8G', text: 'Relaxing in the grass at the University of Bonn while waiting for pizza'}]
+            ],
+
+            [
+                'Thursday, July 7',
+                [{url: 'https://bit.ly/3uQ6Opd', text: 'Observing the ships chugging along the Rhine'},
+                {url: 'https://bit.ly/3z8ZE1N', text: 'Enjoying some purple flowers by a church'},
+                {url: 'https://bit.ly/3ROUbVt', text: 'In another garden, this time next to the river'},
+                {url: 'https://bit.ly/3IK3H8a', text: 'Apprehensive about looking out the window on Moby Dick (our boat)'},
+                {url: 'https://bit.ly/3IGKxjm', text: 'Watching North Rhine-Westphalia pass by...next stop: Königswinter and the Drachenfels'},
+                {url: 'https://bit.ly/3IG7KlD', text: 'The nice scenery makes climbing 300 meters up the mountain worth it'},
+                {url: 'https://bit.ly/3OaiV7r', text: 'View from the top of the Drachenfels'},
+                {url: 'https://bit.ly/3Pbb0YV', text: 'Having fun at a board game café'},
+                {url: 'https://bit.ly/3RAV57G', text: 'Finding a Manitoba game (upon opening it it seemed...questionable)'}]
+            ]
+        ];
+
+        const updateMessage = function(msg){
+            return function(){
+                message = msg;
+                console.log(message);
+            }
+        };
+
+        class Day extends React.Component{
+            constructor(props){
+                super(props);
+            }
+
+            render(){
+                let photoCounter = 0;
+
+                return(
+                    <div className = {'day'}>
+                        <div className = {'day-trigger'} onClick = {this.props.toggle}>
+                            <h3>{this.props.name} ({this.props.photos.length}){this.props.show && '▲'}{!this.props.show && '▼'}</h3>
+                        </div>
+                        <div style = {{display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridGap: '0 0'}}>
+                            {this.props.show && this.props.photos.map((elem) => <Photo key = {photoCounter++} url = {elem.url} textHandler = {this.props.handler(elem.text)}/>)}
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        class Photo extends React.Component {
+            constructor(props){
+                super(props);
+            }
+
+            render(){
+                return(
+                        <img src={this.props.url} style = {{width: '20vw', margin: '0'}} onClick = {this.props.textHandler} className = 'grid-image'/>
+                );
+            }
+        }
+
+        class Page extends React.Component{
+            constructor(props){
+                super(props);
+
+                this.state = {
+                    message: 'Click any photo to learn more!',
+                    show: [false, false, false]
+                };
+
+                this.updateMessage = this.updateMessage.bind(this);
+                this.toggleShow = this.toggleShow.bind(this);
+            }
+
+
+            toggleShow = (i) => {
+                let t = this;
+
+                return function(){
+                    t.setState(state => ({
+                        show: [...state.show.slice(0, i), !state.show[i], ...state.show.slice(i + 1)]
+                    }));
+                }
+            }
+
+            updateMessage = (msg) => {
+                let t = this;
+
+                return function(){
+                    t.setState({
+                        message: msg
+                    });
+                }
+            };
+
+            render(){
+                let dayCounter = 0;
+
+                return(
+                    <div>
+                    <div id = {'top-bar'}><img src = {'https://bit.ly/3yNpXcv'} id={'ralph'}/><div id = {'message'}><div>{this.state.message}</div></div></div>
+                    <main>
+                    <h1>Ralphs Reisen</h1>
+                    <h2>Summer 2022</h2>
+                    <p>Hi Stefan! This is my attempt to make my documentation of Ralph's travels throughout Germany a bit more my style. This is very much a work in progress, but I thought
+        I'd share the preliminary stage :) I haven't adapted it for mobile yet, so it's best viewed on a computer. I hope you like it!</p>
+
+
+                    <div style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        {DATA.map((elem) => <Day show = {this.state.show[dayCounter]} toggle = {this.toggleShow(dayCounter)} key = {dayCounter++} name = {elem[0]} photos = {elem[1]} handler = {this.updateMessage}/>)}
+                    </div>
+                    </main>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Page/>, document.getElementById('page'));
+    </script>
+</head>
+<body>
+    <div id="page"></div>
+</body>
+</html>
